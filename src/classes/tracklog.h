@@ -6,17 +6,19 @@
 
 class Kart;
 
-class tracklog{
-    string time, info;
+class tracklog
+{
+    std::string time, info;
 
     friend class Kart;
-    public:
+
+public:
     tracklog();
-    tracklog(const tracklog&);
-    tracklog& operator=(const tracklog&);
-    tracklog(string);
-    friend ostream& operator<<(ostream&, const tracklog&);
-    friend istream& operator>>(istream&, tracklog&);
+    tracklog(const tracklog &);
+    tracklog &operator=(const tracklog &);
+    tracklog(std::string);
+    friend std::ostream &operator<<(std::ostream &, const tracklog &);
+    friend std::istream &operator>>(std::istream &, tracklog &);
 };
 
 #endif

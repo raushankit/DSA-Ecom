@@ -11,37 +11,37 @@
 class Kart
 {
 public:
-    Kart(string);
+    Kart(std::string);
     void addProduct();
     void saveData();
     void loadData();
     void processOrders();
-    grp<unsigned int, string> searchResult();
-    friend ostream &operator<<(ostream &, const Kart &);
-    friend istream &operator>>(istream &, Kart &);
-    string verifyID(string, string, string);
-    bool recoverAndSet(string, string);
-    vector<string> showProduct(unsigned int, string);
-    grp<string, string> createAccount();
-    void AddAddress(string);
-    string getProductName(string);
-    vector<grp<string, unsigned int>> getCart(string);
-    void checkout(string, vector<grp<string, unsigned int>>);
-    void removeFromCart(string, vector<string>);
-    void rateProd(string, unsigned int, string);
-    void reviewProd(string, unsigned int, string);
-    void lordreview(unsigned int, string, string, bool);
-    void orderPage(string);
-    void WishlistPage(string, bool);
-    void AddWishlistORcart(string, unsigned int, string, bool);
-    void BuyNow(string, unsigned int, string);
+    grp<unsigned int, std::string> searchResult();
+    friend std::ostream &operator<<(std::ostream &, const Kart &);
+    friend std::istream &operator>>(std::istream &, Kart &);
+    std::string verifyID(std::string, std::string, std::string);
+    bool recoverAndSet(std::string, std::string);
+    std::vector<std::string> showProduct(unsigned int, std::string);
+    grp<std::string, std::string> createAccount();
+    void AddAddress(std::string);
+    std::string getProductName(std::string);
+    std::vector<grp<std::string, unsigned int>> getCart(std::string);
+    void checkout(std::string, std::vector<grp<std::string, unsigned int>>);
+    void removeFromCart(std::string, std::vector<std::string>);
+    void rateProd(std::string, unsigned int, std::string);
+    void reviewProd(std::string, unsigned int, std::string);
+    void lordreview(unsigned int, std::string, std::string, bool);
+    void orderPage(std::string);
+    void WishlistPage(std::string, bool);
+    void AddWishlistORcart(std::string, unsigned int, std::string, bool);
+    void BuyNow(std::string, unsigned int, std::string);
 
 private:
-    string passcode;
-    unordered_map<string, Account> users;
-    vector<string> categ;
-    unordered_map<unsigned int, unordered_map<string, Product>> prod;
-    unordered_map<string, vector<string>> orders;
+    std::string passcode;
+    std::unordered_map<std::string, Account> users;
+    std::vector<std::string> categ;
+    std::unordered_map<unsigned int, std::unordered_map<std::string, Product>> prod;
+    std::unordered_map<std::string, std::vector<std::string>> orders;
     searchList search;
 };
 

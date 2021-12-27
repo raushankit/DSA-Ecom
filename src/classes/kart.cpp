@@ -1,6 +1,7 @@
 #include "kart.h"
 
-Kart::Kart(string pw){
+Kart::Kart(std::string pw)
+{
     passcode = pw;
     users.clear();
     categ.clear();
@@ -8,245 +9,304 @@ Kart::Kart(string pw){
     orders.clear();
 }
 
-void Kart::addProduct(){
-    string name,desc;
-    unsigned int am,qu,cat;
-    cout << "Name of the product(Only Alphabets): ";
-    getline(cin,name);
-    cout << "Description: ";
-    getline(cin, desc);
-    cout << "Enter price of the product: ";
-    cin >> am;
-    cout << "Enter quantity: ";
-    cin >> qu;
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    if(categ.empty()){
-        cout << "Add the product's category" << endl;
-        cout << "Enter Category name: ";
-        string s;
-        getline(cin,s);
+void Kart::addProduct()
+{
+    std::string name, desc;
+    unsigned int am, qu, cat;
+    std::cout << "Name of the product(Only Alphabets): ";
+    getline(std::cin, name);
+    std::cout << "Description: ";
+    getline(std::cin, desc);
+    std::cout << "Enter price of the product: ";
+    std::cin >> am;
+    std::cout << "Enter quantity: ";
+    std::cin >> qu;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if (categ.empty())
+    {
+        std::cout << "Add the product's category" << std::endl;
+        std::cout << "Enter Category name: ";
+        std::string s;
+        getline(std::cin, s);
         cat = 1;
         categ.push_back(s);
     }
-    else{
-        cout << "Choose category of the product......." << endl;
-        for(unsigned int i = 0;i < categ.size();i++){
-            cout << i+1 << ". " << categ[i] << endl;
+    else
+    {
+        std::cout << "Choose category of the product......." << std::endl;
+        for (unsigned int i = 0; i < categ.size(); i++)
+        {
+            std::cout << i + 1 << ". " << categ[i] << std::endl;
         }
-        cout << "If Product is of another category proceed to add category(TYPE 0)" << endl;
-        cout << "Else choose the category number" << endl;
-        cout << "Enter your choice: ";
-        cin >> cat;
-        if(cat==0){
-            cout << "Enter Category name: ";
-            string s;
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            getline(cin,s);
-            cat = categ.size() +1;
+        std::cout << "If Product is of another category proceed to add category(TYPE 0)" << std::endl;
+        std::cout << "Else choose the category number" << std::endl;
+        std::cout << "Enter your choice: ";
+        std::cin >> cat;
+        if (cat == 0)
+        {
+            std::cout << "Enter Category name: ";
+            std::string s;
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            getline(std::cin, s);
+            cat = categ.size() + 1;
             categ.push_back(s);
         }
-        if(cat > categ.size()){
-            cout << "Invalid choice." << endl;
-            while(cat > categ.size()){
-                cout << "Choose Valid category: ";
-                cin >> cat;
+        if (cat > categ.size())
+        {
+            std::cout << "Invalid choice." << std::endl;
+            while (cat > categ.size())
+            {
+                std::cout << "Choose Valid category: ";
+                std::cin >> cat;
             }
         }
     }
-    string tstamp = "PROD" + Timestamp();
-    prod[cat][tstamp] = Product(name,desc,am,qu,cat);
-    search.insert(tstamp,cat,name);
+    std::string tstamp = "PROD" + Timestamp();
+    prod[cat][tstamp] = Product(name, desc, am, qu, cat);
+    search.insert(tstamp, cat, name);
 }
 
-void Kart::saveData(){
-    char *file = (char*)"Kartdata.txt";
-    ofstream fout;
-    fout.open(file, ofstream::out | ofstream::trunc);
-    fout << "BACKUP DATA" << endl;
-    fout << "//////////////////////////////////////" << endl;
-    fout << *this << endl;
+void Kart::saveData()
+{
+    char *file = (char *)"Kartdata.txt";
+    std::ofstream fout;
+    fout.open(file, std::ofstream::out | std::ofstream::trunc);
+    fout << "BACKUP DATA" << std::endl;
+    fout << "//////////////////////////////////////" << std::endl;
+    fout << *this << std::endl;
 }
 
-void Kart::loadData(){
-    ifstream fin("Kartdata.txt");
-    string str="";
-    getline(fin,str);getline(fin,str);
+void Kart::loadData()
+{
+    std::ifstream fin("Kartdata.txt");
+    std::string str = "";
+    getline(fin, str);
+    getline(fin, str);
     fin >> *this;
 }
 
-void Kart::processOrders(){
-    for(auto i:orders){
-        string prodid;
+void Kart::processOrders()
+{
+    for (auto i : orders)
+    {
+        std::string prodid;
         unsigned int cat;
-        stringstream ss(i.first);
+        std::stringstream ss(i.first);
         ss >> cat >> prodid;
-        cout << "********************************************" << endl;
-        for(auto j:i.second){
+        std::cout << "********************************************" << std::endl;
+        for (auto j : i.second)
+        {
             users[j].orders[i.first].log.push_back(tracklog("Order Delivered"));
             users[j].orders[i.first].isDelivered = true;
-            cout << users[j].getName() << "'s oder delivered" << endl;
-            cout << "********************************************" << endl;
+            std::cout << users[j].getName() << "'s oder delivered" << std::endl;
+            std::cout << "********************************************" << std::endl;
         }
         i.second.clear();
     }
     orders.clear();
 }
 
-grp<unsigned int, string> Kart::searchResult(){
-    string key;
-    cout << "Enter the name of the product to search: ";
-    getline(cin,key);
-    vector<grp<unsigned int, string>> results = search.getList(key);
-    if(results.empty()){
-        cout << "No results found. " << endl;
-        return grp<unsigned int, string>(0,"");
+grp<unsigned int, std::string> Kart::searchResult()
+{
+    std::string key;
+    std::cout << "Enter the name of the product to search: ";
+    getline(std::cin, key);
+    std::vector<grp<unsigned int, std::string>> results = search.getList(key);
+    if (results.empty())
+    {
+        std::cout << "No results found. " << std::endl;
+        return grp<unsigned int, std::string>(0, "");
     }
-    for(unsigned int i = 0;i < results.size(); i++){
-        cout << i+1 << ". ";
-        cout << prod[results[i].a][results[i].b].getName() << endl; 
+    for (unsigned int i = 0; i < results.size(); i++)
+    {
+        std::cout << i + 1 << ". ";
+        std::cout << prod[results[i].a][results[i].b].getName() << std::endl;
     }
-    cout << "Choose the Product number: ";
+    std::cout << "Choose the Product number: ";
     unsigned int response;
-    cin >> response;
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    if(response<1||response>results.size()){
-        cout << "Invalid input " << endl;
-        return grp<unsigned int, string>(0,"");
+    std::cin >> response;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if (response < 1 || response > results.size())
+    {
+        std::cout << "Invalid input " << std::endl;
+        return grp<unsigned int, std::string>(0, "");
     }
-    return results[response-1];
+    return results[response - 1];
 }
 
-ostream& operator<<(ostream &out, const Kart &p){
-    out << "UserSize: " << p.users.size() << endl;
-    for(auto i:p.users){
-        out << "userID: " << i.first << endl;
-        out << i.second << endl;
+std::ostream &operator<<(std::ostream &out, const Kart &p)
+{
+    out << "UserSize: " << p.users.size() << std::endl;
+    for (auto i : p.users)
+    {
+        out << "userID: " << i.first << std::endl;
+        out << i.second << std::endl;
     }
-    out << "CategorySize: " << p.categ.size() << endl;
-    for(unsigned int i = 0;i < p.categ.size();i++){
-        out << i+1 << ". " << p.categ[i] << endl;
+    out << "CategorySize: " << p.categ.size() << std::endl;
+    for (unsigned int i = 0; i < p.categ.size(); i++)
+    {
+        out << i + 1 << ". " << p.categ[i] << std::endl;
     }
-    out << "categorySize: " << p.prod.size() << endl;
-    for(auto i:p.prod){
-        out << "categoryNumber: " << i.first << endl;
-        out << "categoryProductSize: " << i.second.size() << endl;
-        for(auto j:i.second){
-            out << "ProductID: " << j.first << endl;
-            out << j.second << endl;
+    out << "categorySize: " << p.prod.size() << std::endl;
+    for (auto i : p.prod)
+    {
+        out << "categoryNumber: " << i.first << std::endl;
+        out << "categoryProductSize: " << i.second.size() << std::endl;
+        for (auto j : i.second)
+        {
+            out << "ProductID: " << j.first << std::endl;
+            out << j.second << std::endl;
         }
     }
-    out << "OrderSize: " << p.orders.size() << endl;
-    for(auto i:p.orders){
-        out << "ProdID: " << i.first << endl;
-        out << "ProductOrderSize: " << i.second.size() << endl;
-        for(auto j:i.second) out << j << endl;
+    out << "OrderSize: " << p.orders.size() << std::endl;
+    for (auto i : p.orders)
+    {
+        out << "ProdID: " << i.first << std::endl;
+        out << "ProductOrderSize: " << i.second.size() << std::endl;
+        for (auto j : i.second)
+            out << j << std::endl;
     }
     return out;
 }
 
-istream& operator>>(istream &in, Kart &p){
-    string str;
-    getline(in,str);
-    stringstream ss(str);
+std::istream &operator>>(std::istream &in, Kart &p)
+{
+    std::string str;
+    getline(in, str);
+    std::stringstream ss(str);
     int n;
     ss >> str >> n;
-    for(int i = 0;i < n;i++){
-        getline(in,str);
-        ss.str("");ss.clear();ss << str;
+    for (int i = 0; i < n; i++)
+    {
+        getline(in, str);
+        ss.str("");
+        ss.clear();
+        ss << str;
         ss >> str >> str;
         Account temp;
         in >> temp;
         p.users[str] = temp;
-        getline(in,str);
+        getline(in, str);
     }
-    getline(in,str);
-    ss.str("");ss.clear();ss << str;
+    getline(in, str);
+    ss.str("");
+    ss.clear();
+    ss << str;
     ss >> str >> n;
     p.categ.resize(n);
-    for(int i = 0;i < n;i++){
+    for (int i = 0; i < n; i++)
+    {
         unsigned int temp_in;
-        string temp_str;
-        getline(in,str);
-        ss.str("");ss.clear();ss << str;
+        std::string temp_str;
+        getline(in, str);
+        ss.str("");
+        ss.clear();
+        ss << str;
         ss >> temp_in >> str >> temp_str;
-        while(ss >> str) temp_str += " "+str;
-        p.categ[temp_in-1] = temp_str;
+        while (ss >> str)
+            temp_str += " " + str;
+        p.categ[temp_in - 1] = temp_str;
     }
-    getline(in,str);
-    ss.str("");ss.clear();ss << str;
+    getline(in, str);
+    ss.str("");
+    ss.clear();
+    ss << str;
     ss >> str >> n;
-    for(int i = 0;i < n;i++){
+    for (int i = 0; i < n; i++)
+    {
         unsigned int categNo;
-        getline(in,str);
-        ss.str("");ss.clear();ss << str;
+        getline(in, str);
+        ss.str("");
+        ss.clear();
+        ss << str;
         ss >> str >> categNo;
         int m;
-        getline(in,str);
-        ss.str("");ss.clear();ss << str;
+        getline(in, str);
+        ss.str("");
+        ss.clear();
+        ss << str;
         ss >> str >> m;
-        for(int j = 0;j < m;j++){
+        for (int j = 0; j < m; j++)
+        {
             Product temp;
-            string prodID;
-            getline(in,str);
-            ss.str("");ss.clear();ss << str;
+            std::string prodID;
+            getline(in, str);
+            ss.str("");
+            ss.clear();
+            ss << str;
             ss >> str >> prodID;
             in >> temp;
             p.prod[categNo][prodID] = temp;
-            p.search.insert(prodID,categNo,temp.getName());
-            getline(in,str);
+            p.search.insert(prodID, categNo, temp.getName());
+            getline(in, str);
         }
     }
-    getline(in,str);
-    ss.str("");ss.clear();ss << str;
+    getline(in, str);
+    ss.str("");
+    ss.clear();
+    ss << str;
     ss >> str >> n;
-    for(int i = 0;i < n;i++){
-        string prodID;
-        getline(in,str);
-        ss.str("");ss.clear();ss << str;
+    for (int i = 0; i < n; i++)
+    {
+        std::string prodID;
+        getline(in, str);
+        ss.str("");
+        ss.clear();
+        ss << str;
         ss >> str >> prodID >> str;
-        prodID += " "+str;
+        prodID += " " + str;
         int m;
-        getline(in,str);
-        ss.str("");ss.clear();ss << str;
+        getline(in, str);
+        ss.str("");
+        ss.clear();
+        ss << str;
         ss >> str >> m;
-        for(int j = 0;j < m;j++){
-            getline(in,str);
+        for (int j = 0; j < m; j++)
+        {
+            getline(in, str);
             p.orders[prodID].push_back(str);
         }
     }
     return in;
 }
 
-string Kart::verifyID(string uid,string u,string p){
-    string nam = users[uid].getName();
-    if(nam==""){
-        cout << "Critical Error!" << endl;
-        cout << "Invalid user" << endl;
+std::string Kart::verifyID(std::string uid, std::string u, std::string p)
+{
+    std::string nam = users[uid].getName();
+    if (nam == "")
+    {
+        std::cout << "Critical Error!" << std::endl;
+        std::cout << "Invalid user" << std::endl;
         return "";
     }
-    if(users[uid].verifyID(u,p)){
+    if (users[uid].verifyID(u, p))
+    {
         return nam;
-    }    
-    else return "";
+    }
+    else
+        return "";
 }
 
-bool Kart::recoverAndSet(string uid,string name){
-    if(users[uid].getName()!=name){
-        cout << "username incorrect" << endl;
+bool Kart::recoverAndSet(std::string uid, std::string name)
+{
+    if (users[uid].getName() != name)
+    {
+        std::cout << "username incorrect" << std::endl;
         return false;
     }
-    cout << "Enter your new credentials" << endl;
-    string uName,Pword;
-    cout << "Enter Username: ";
-    getline(cin,uName);
-    cout << "Enter Password: ";
-    getline(cin,Pword);
-    users[uid].setUp(uName,Pword);
+    std::cout << "Enter your new credentials" << std::endl;
+    std::string uName, Pword;
+    std::cout << "Enter Username: ";
+    getline(std::cin, uName);
+    std::cout << "Enter Password: ";
+    getline(std::cin, Pword);
+    users[uid].setUp(uName, Pword);
     return true;
 }
 
-grp<string,string> Kart::createAccount(){
-    grp<string,string> p("USER","");
+grp<std::string, std::string> Kart::createAccount()
+{
+    grp<std::string, std::string> p("USER", "");
     Account temp;
     p.b = temp.newAccount();
     p.a += Timestamp();
@@ -254,275 +314,323 @@ grp<string,string> Kart::createAccount(){
     return p;
 }
 
-vector<string> Kart::showProduct(unsigned int cat, string prodID){
+std::vector<std::string> Kart::showProduct(unsigned int cat, std::string prodID)
+{
     return prod[cat][prodID].displayProduct();
 }
 
-void Kart::AddAddress(string uid){
+void Kart::AddAddress(std::string uid)
+{
     users[uid].addAddress();
 }
 
-vector<grp<string,unsigned int>> Kart::getCart(string uid){
-    vector<grp<string,unsigned int>> tmp;
-    for(auto i:users[uid].wish){
-        if(i.second==0)continue;
-        tmp.push_back(grp<string,unsigned int>(i.first,i.second));
+std::vector<grp<std::string, unsigned int>> Kart::getCart(std::string uid)
+{
+    std::vector<grp<std::string, unsigned int>> tmp;
+    for (auto i : users[uid].wish)
+    {
+        if (i.second == 0)
+            continue;
+        tmp.push_back(grp<std::string, unsigned int>(i.first, i.second));
     }
     return tmp;
 }
 
-string Kart::getProductName(string uprid){
-    stringstream ss(uprid);
+std::string Kart::getProductName(std::string uprid)
+{
+    std::stringstream ss(uprid);
     unsigned int categ;
-    string prodID;
+    std::string prodID;
     ss >> categ >> prodID;
     return prod[categ][prodID].name;
 }
 
-void Kart::rateProd(string uid,unsigned int cat,string prodid){
-    cout << "Rate the Product from (1-10): ";
+void Kart::rateProd(std::string uid, unsigned int cat, std::string prodid)
+{
+    std::cout << "Rate the Product from (1-10): ";
     unsigned int n;
-    cin >> n;
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    if(n < 1||n > 10){
-        cout << "Invalid rating" << endl;
+    std::cin >> n;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if (n < 1 || n > 10)
+    {
+        std::cout << "Invalid rating" << std::endl;
         return;
     }
-    prod[cat][prodid].rating = (1.0*prod[cat][prodid].ratdata.size()*prod[cat][prodid].rating + n)/(prod[cat][prodid].ratdata.size()+1);
+    prod[cat][prodid].rating = (1.0 * prod[cat][prodid].ratdata.size() * prod[cat][prodid].rating + n) / (prod[cat][prodid].ratdata.size() + 1);
     prod[cat][prodid].ratdata[uid] = n;
-    users[uid].ratings.push_back(to_string(cat)+" "+prodid);
+    users[uid].ratings.push_back(std::to_string(cat) + " " + prodid);
 }
 
-void Kart::removeFromCart(string uid, vector<string> prodids){
-    for(auto i:prodids){
+void Kart::removeFromCart(std::string uid, std::vector<std::string> prodids)
+{
+    for (auto i : prodids)
+    {
         users[uid].wish.erase(i);
     }
-    cout << "Selected items removed from cart" << endl;
+    std::cout << "Selected items removed from cart" << std::endl;
 }
 
-void Kart::reviewProd(string uid,unsigned int cat,string prodid){
+void Kart::reviewProd(std::string uid, unsigned int cat, std::string prodid)
+{
     review tmr;
     tmr.takeReview(users[uid].getName());
-    users[uid].reviews.push_back(to_string(cat)+" "+prodid);
+    users[uid].reviews.push_back(std::to_string(cat) + " " + prodid);
     prod[cat][prodid].redata[uid] = tmr;
 }
 
-void Kart::lordreview(unsigned int cat,string prodid,string rid,bool b){
-    if(b) prod[cat][prodid].redata[rid].likes++;
-    else prod[cat][prodid].redata[rid].dislikes++;
+void Kart::lordreview(unsigned int cat, std::string prodid, std::string rid, bool b)
+{
+    if (b)
+        prod[cat][prodid].redata[rid].likes++;
+    else
+        prod[cat][prodid].redata[rid].dislikes++;
 }
 
-void Kart::checkout(string uid, vector<grp<string,unsigned int>> prods){
-    cout << "Choose a Address to Deliver(Enter 0 to add new Address)" << endl;
+void Kart::checkout(std::string uid, std::vector<grp<std::string, unsigned int>> prods)
+{
+    std::cout << "Choose a Address to Deliver(Enter 0 to add new Address)" << std::endl;
     int j = 1;
-    for(auto i:users[uid].addresses){
-        cout << j << " :: ";
+    for (auto i : users[uid].addresses)
+    {
+        std::cout << j << " :: ";
         i.displayAddress();
         j++;
     }
     int choose;
-    cout << "Choose the address number: ";
-    cin >> choose;
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    if(choose==0){
+    std::cout << "Choose the address number: ";
+    std::cin >> choose;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if (choose == 0)
+    {
         users[uid].addAddress();
-        choose = j+1;
+        choose = j + 1;
     }
-    if(choose<1||choose>j){
-        cout << "Invalid Address Chosen. " << endl;
-        cout << "------------------------------------" << endl;
-        cout << "order checkout failed" << endl;
-        cout << "------------------------------------" << endl;
+    if (choose < 1 || choose > j)
+    {
+        std::cout << "Invalid Address Chosen. " << std::endl;
+        std::cout << "------------------------------------" << std::endl;
+        std::cout << "order checkout failed" << std::endl;
+        std::cout << "------------------------------------" << std::endl;
         return;
     }
     unsigned int amount = 0;
-    stringstream ss;
-    cout << "Order Placed of the following products: " << endl;
-    j =1;
-    for(auto i:prods){
+    std::stringstream ss;
+    std::cout << "Order Placed of the following products: " << std::endl;
+    j = 1;
+    for (auto i : prods)
+    {
         orders[i.a].push_back(uid);
         unsigned int ct;
-        ss.str("");ss.clear();ss << i.a;
-        string prodID;
+        ss.str("");
+        ss.clear();
+        ss << i.a;
+        std::string prodID;
         ss >> ct >> prodID;
-        amount += i.b*prod[ct][prodID].amount;
+        amount += i.b * prod[ct][prodID].amount;
         order tord;
-        tord.ad = users[uid].addresses[choose-1];
+        tord.ad = users[uid].addresses[choose - 1];
         tord.isDelivered = false;
-        cout << j << " :: " << prod[ct][prodID].name << endl;
-        tord.log.push_back(tracklog("Order of Product "+prod[ct][prodID].name + " placed."));
-        tord.log.push_back(tracklog("Quantity: " + to_string(i.b)));
+        std::cout << j << " :: " << prod[ct][prodID].name << std::endl;
+        tord.log.push_back(tracklog("Order of Product " + prod[ct][prodID].name + " placed."));
+        tord.log.push_back(tracklog("Quantity: " + std::to_string(i.b)));
         tord.log.push_back(tracklog("Order shipped from the nearest courier facility"));
         users[uid].wish.erase(i.a);
-        users[uid].orders[to_string(i.b) + " " + i.a] = tord;
+        users[uid].orders[std::to_string(i.b) + " " + i.a] = tord;
     }
-    cout << "Total Amount: " << amount << endl;
+    std::cout << "Total Amount: " << amount << std::endl;
 }
 
-void Kart::orderPage(string uid){
-    cout << "************************************" << endl;
-    if(users[uid].orders.empty()){
-        cout << "You haven't placed any orders" << endl;
-        cout << "************************************" << endl;
+void Kart::orderPage(std::string uid)
+{
+    std::cout << "************************************" << std::endl;
+    if (users[uid].orders.empty())
+    {
+        std::cout << "You haven't placed any orders" << std::endl;
+        std::cout << "************************************" << std::endl;
         return;
     }
-    cout << "Your orders are" << endl;
-    int j =1;
-    vector<grp<string,string>> tmp;
-    for(auto i:users[uid].orders){
-        cout << "------------------------------------" << endl;
-        stringstream ss(i.first);
+    std::cout << "Your orders are" << std::endl;
+    int j = 1;
+    std::vector<grp<std::string, std::string>> tmp;
+    for (auto i : users[uid].orders)
+    {
+        std::cout << "------------------------------------" << std::endl;
+        std::stringstream ss(i.first);
         unsigned int cat;
-        string prodid;
+        std::string prodid;
         ss >> cat >> prodid;
-        tmp.push_back(grp<string,string>(prod[cat][prodid].name,i.first));
-        cout << j << " :: name: " << prod[cat][prodid].name;
-        if(i.second.isDelivered) cout << " DELIVERED" << endl;
-        else cout << " ON THE WAY" << endl;
-        j++; 
+        tmp.push_back(grp<std::string, std::string>(prod[cat][prodid].name, i.first));
+        std::cout << j << " :: name: " << prod[cat][prodid].name;
+        if (i.second.isDelivered)
+            std::cout << " DELIVERED" << std::endl;
+        else
+            std::cout << " ON THE WAY" << std::endl;
+        j++;
     }
-    cout << "************************************" << endl;
+    std::cout << "************************************" << std::endl;
     int n;
-    cout << "Choose the Product Number: ";
-    cin >> n;
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    cout << "************************************" << endl;
-    if(n < 1 || n > j){
-        cout << "Invalid Product Number" << endl;
-        cout << "************************************" << endl;
+    std::cout << "Choose the Product Number: ";
+    std::cin >> n;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cout << "************************************" << std::endl;
+    if (n < 1 || n > j)
+    {
+        std::cout << "Invalid Product Number" << std::endl;
+        std::cout << "************************************" << std::endl;
         return;
     }
-    cout << "Name: " << tmp[n-1].a << endl;
-    cout << "Previous Logs are: " << endl;
-    for(auto i:users[uid].orders[tmp[n-1].b].log){
-        cout << i.time << " :: " << i.info << endl;
-        cout << "------------------------------------" << endl;
+    std::cout << "Name: " << tmp[n - 1].a << std::endl;
+    std::cout << "Previous Logs are: " << std::endl;
+    for (auto i : users[uid].orders[tmp[n - 1].b].log)
+    {
+        std::cout << i.time << " :: " << i.info << std::endl;
+        std::cout << "------------------------------------" << std::endl;
     }
-    cout << "************************************" << endl;
+    std::cout << "************************************" << std::endl;
 }
 
-void Kart::WishlistPage(string uid, bool b){
-    vector<grp<unsigned int,string>> wishlist;
-    for(auto i:users[uid].wish){
-        if(i.second==0){
-            stringstream ss(i.first);
-            grp<unsigned int,string> tmg(0,"");
+void Kart::WishlistPage(std::string uid, bool b)
+{
+    std::vector<grp<unsigned int, std::string>> wishlist;
+    for (auto i : users[uid].wish)
+    {
+        if (i.second == 0)
+        {
+            std::stringstream ss(i.first);
+            grp<unsigned int, std::string> tmg(0, "");
             ss >> tmg.a >> tmg.b;
             wishlist.push_back(tmg);
         }
     }
-    cout << "************************************" << endl;
-    if(wishlist.empty()){
-        cout << "Your Wishlist is empty" << endl;
-        cout << "************************************" << endl;
+    std::cout << "************************************" << std::endl;
+    if (wishlist.empty())
+    {
+        std::cout << "Your Wishlist is empty" << std::endl;
+        std::cout << "************************************" << std::endl;
         return;
     }
     int j = 1;
-    for(auto i:wishlist){
-        cout << j << " :: name: " << prod[i.a][i.b].name << endl;
-        cout << "------------------------------------" << endl;
+    for (auto i : wishlist)
+    {
+        std::cout << j << " :: name: " << prod[i.a][i.b].name << std::endl;
+        std::cout << "------------------------------------" << std::endl;
     }
-    cout << "************************************" << endl;
-    string str;
-    vector<int> a;
-    cout << "Choose the products to checkout" << endl;
-    cout << "Enter the number/(s) seperated by spaces: ";
-    getline(cin,str);
-    stringstream ss(str);
+    std::cout << "************************************" << std::endl;
+    std::string str;
+    std::vector<int> a;
+    std::cout << "Choose the products to checkout" << std::endl;
+    std::cout << "Enter the number/(s) seperated by spaces: ";
+    getline(std::cin, str);
+    std::stringstream ss(str);
     int tmn;
-    while(ss >> tmn){
-        if(tmn < 1 || tmn > j){
-            cout << "Invalid Product Number" << endl;
-            cout << "************************************" << endl;
+    while (ss >> tmn)
+    {
+        if (tmn < 1 || tmn > j)
+        {
+            std::cout << "Invalid Product Number" << std::endl;
+            std::cout << "************************************" << std::endl;
             return;
         }
         a.push_back(tmn);
     }
-    if(a.empty()){
-        cout <<" No products chosen" << endl;
-        cout << "************************************" << endl;
+    if (a.empty())
+    {
+        std::cout << " No products chosen" << std::endl;
+        std::cout << "************************************" << std::endl;
         return;
     }
-    cout << "************************************" << endl;
-    if(b){
-        for(auto i:a){
+    std::cout << "************************************" << std::endl;
+    if (b)
+    {
+        for (auto i : a)
+        {
             int pmn;
-            cout << "Choose quantity for Product " << i << " :";
-            cin >> pmn;
-            if(pmn<=0){
-                cout <<"Quantity must be  positive" << endl;
-                cout << "************************************" << endl;
+            std::cout << "Choose quantity for Product " << i << " :";
+            std::cin >> pmn;
+            if (pmn <= 0)
+            {
+                std::cout << "Quantity must be  positive" << std::endl;
+                std::cout << "************************************" << std::endl;
                 return;
             }
-            users[uid].wish[to_string(wishlist[i-1].a) + " " + wishlist[i-1].b] = pmn;
+            users[uid].wish[std::to_string(wishlist[i - 1].a) + " " + wishlist[i - 1].b] = pmn;
         }
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
-    else{
-        for(auto i:a){
-            users[uid].wish.erase(to_string(wishlist[i-1].a) + " " + wishlist[i-1].b);
+    else
+    {
+        for (auto i : a)
+        {
+            users[uid].wish.erase(std::to_string(wishlist[i - 1].a) + " " + wishlist[i - 1].b);
         }
     }
-    cout << "************************************" << endl;
+    std::cout << "************************************" << std::endl;
 }
 
-void Kart::AddWishlistORcart(string uid ,unsigned int cat ,string prodid ,bool b){
-    if(b){
-        users[uid].wish[to_string(cat)+" "+prodid] = 0;
-        cout << "Added To Your Wishlist" << endl;
+void Kart::AddWishlistORcart(std::string uid, unsigned int cat, std::string prodid, bool b)
+{
+    if (b)
+    {
+        users[uid].wish[std::to_string(cat) + " " + prodid] = 0;
+        std::cout << "Added To Your Wishlist" << std::endl;
         return;
     }
-    cout << "Choose the quantity of the Product: ";
+    std::cout << "Choose the quantity of the Product: ";
     int n;
-    cin >> n;
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    if(n <= 0){
-        cout << "Quantity cannot be negative" <<endl;
+    std::cin >> n;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if (n <= 0)
+    {
+        std::cout << "Quantity cannot be negative" << std::endl;
         return;
     }
-    users[uid].wish[to_string(cat)+" "+prodid] = n;
+    users[uid].wish[std::to_string(cat) + " " + prodid] = n;
 }
 
-void Kart::BuyNow(string uid,unsigned int cat,string prodid){
-    cout << "Choose the quantity of the Product: ";
+void Kart::BuyNow(std::string uid, unsigned int cat, std::string prodid)
+{
+    std::cout << "Choose the quantity of the Product: ";
     int n;
-    cin >> n;
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    if(n <= 0){
-        cout << "Quantity must be negative" <<endl;
+    std::cin >> n;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if (n <= 0)
+    {
+        std::cout << "Quantity must be negative" << std::endl;
         return;
     }
-    cout << "Choose a Address to Deliver(Enter 0 to add new Address)" << endl;
+    std::cout << "Choose a Address to Deliver(Enter 0 to add new Address)" << std::endl;
     int j = 1;
-    for(auto i:users[uid].addresses){
-        cout << j << " :: ";
+    for (auto i : users[uid].addresses)
+    {
+        std::cout << j << " :: ";
         i.displayAddress();
         j++;
     }
     int choose;
-    cout << "Choose the address number: ";
-    cin >> choose;
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    if(choose==0){
+    std::cout << "Choose the address number: ";
+    std::cin >> choose;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if (choose == 0)
+    {
         users[uid].addAddress();
-        choose = j+1;
+        choose = j + 1;
     }
-    else if(choose<1||choose>j){
-        cout << "Invalid Address Chosen. " << endl;
-        cout << "------------------------------------" << endl;
-        cout << "order checkout failed" << endl;
-        cout << "------------------------------------" << endl;
+    else if (choose < 1 || choose > j)
+    {
+        std::cout << "Invalid Address Chosen. " << std::endl;
+        std::cout << "------------------------------------" << std::endl;
+        std::cout << "order checkout failed" << std::endl;
+        std::cout << "------------------------------------" << std::endl;
         return;
     }
     order tord;
-    tord.ad = users[uid].addresses[choose-1];
+    tord.ad = users[uid].addresses[choose - 1];
     tord.isDelivered = false;
-    tord.log.push_back(tracklog("Order of Product "+prod[cat][prodid].name + " placed."));
-    tord.log.push_back(tracklog("Quantity: " + to_string(n)));
+    tord.log.push_back(tracklog("Order of Product " + prod[cat][prodid].name + " placed."));
+    tord.log.push_back(tracklog("Quantity: " + std::to_string(n)));
     tord.log.push_back(tracklog("Order shipped from the nearest courier facility"));
-    users[uid].orders[to_string(cat)+" "+prodid] = tord;
-    cout << "Ordersize: " << users[uid].orders.size() << endl;
-    orders[to_string(cat)+" "+prodid].push_back(uid);
-    cout << "Amount: " << prod[cat][prodid].amount << endl;
+    users[uid].orders[std::to_string(cat) + " " + prodid] = tord;
+    std::cout << "Ordersize: " << users[uid].orders.size() << std::endl;
+    orders[std::to_string(cat) + " " + prodid].push_back(uid);
+    std::cout << "Amount: " << prod[cat][prodid].amount << std::endl;
 }
-

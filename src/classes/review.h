@@ -6,22 +6,25 @@
 
 class Kart;
 
-class review{
-    string title, body, tstamp;
-    int likes,dislikes;
-    string userName;
+class review
+{
+public:
+    review();
+    review(std::string, std::string, std::string);
+    review(const review &);
+    void takeReview(std::string);
+    review &operator=(const review &);
+    void displayRev();
+    void LikeDislike(bool); // true for like vice versa
+    friend std::ostream &operator<<(std::ostream &, const review &);
+    friend std::istream &operator>>(std::istream &, review &);
+
+private:
+    std::string title, body, tstamp;
+    int likes, dislikes;
+    std::string userName;
 
     friend class Kart;
-    public:
-    review();
-    review(string, string, string);
-    review(const review&);
-    void takeReview(string);
-    review& operator=(const review&);
-    void displayRev();
-    void LikeDislike(bool);// true for like vice versa
-    friend ostream& operator<< (ostream&, const review&);
-    friend istream& operator>>(istream&, review&);
 };
 
 #endif

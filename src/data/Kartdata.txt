@@ -1,0 +1,229 @@
+BACKUP DATA
+//////////////////////////////////////
+UserSize: 3
+userID: USER1615814063
+username: a
+password: 9
+name: gft
+AddressSize: 1
+Name: de ded ee
+Phoneno: 9874563210
+city: jhfjkenf
+state: jfjfn
+country: india
+PINCODE: 369852
+Landmark: 
+isHomeAddress: 1
+CartSize: 0
+OrderSize: 2
+ProductID: 1 4 PROD1615745076
+Delivered: 0
+Name: de ded ee
+Phoneno: 9874563210
+city: jhfjkenf
+state: jfjfn
+country: india
+PINCODE: 369852
+Landmark: 
+isHomeAddress: 1
+Logsize: 3
+10/04/2021 06:01:27:PM :: Order of Product bell terminator placed.
+10/04/2021 06:01:27:PM :: Quantity: 1
+10/04/2021 06:01:27:PM :: Order shipped from the nearest courier facility
+ProductID: 3 PROD1614891380
+Delivered: 1
+Name: de ded ee
+Phoneno: 9874563210
+city: jhfjkenf
+state: jfjfn
+country: india
+PINCODE: 369852
+Landmark: 
+isHomeAddress: 1
+Logsize: 4
+21/02/2021 02:02:08:PM :: Order of Product Pyska Led placed.
+21/02/2021 02:02:08:PM :: Quantity: 4
+21/02/2021 02:02:08:PM :: Order shipped from the nearest courier facility
+21/03/2021 03:37:35:PM :: Order Delivered
+ReviewSize: 1
+4 PROD1615223191
+RatingSize: 1
+5 PROD1615719932
+
+userID: USER1615803609
+username: raush
+password: 123456
+name: Ankit Raushan
+AddressSize: 1
+Name: A.R
+Phoneno: 9874563210
+city: mjk
+state: bihar
+country: india
+PINCODE: 123654
+Landmark: 
+isHomeAddress: 1
+CartSize: 0
+OrderSize: 0
+ReviewSize: 0
+RatingSize: 0
+
+userID: USER1615810167
+username: nyquist
+password: qwerty
+name: jhg
+AddressSize: 1
+Name: jh dck
+Phoneno: 6541239870
+city: jedwk
+state: djks
+country: india
+PINCODE: 369852
+Landmark: jde kndwkdw kwndw
+isHomeAddress: 0
+CartSize: 0
+OrderSize: 0
+ReviewSize: 0
+RatingSize: 0
+
+CategorySize: 5
+1. Kitchen Appliances
+2. Smartphones
+3. Electronics and Accessories
+4. Computer Accessories
+5. Literature and Books
+categorySize: 6
+categoryNumber: 3
+categoryProductSize: 1
+ProductID: PROD1614891380
+Name: Pyska Led
+Description: Cool daylight 9 watt
+Price: 90
+Quantity: 500
+Category: 3
+Rating: 0
+ReviewSize: 0
+RatingSize: 0
+
+categoryNumber: 2
+categoryProductSize: 2
+ProductID: PROD1614891530
+Name: Cennheiser sx
+Description: premium earphones (without mic)
+Price: 800
+Quantity: 100
+Category: 2
+Rating: 0
+ReviewSize: 0
+RatingSize: 0
+
+ProductID: PROD1614891012
+Name: two plus six
+Description: flagship camera and processor
+Price: 25000
+Quantity: 20
+Category: 2
+Rating: 0
+ReviewSize: 0
+RatingSize: 0
+
+categoryNumber: 4
+categoryProductSize: 3
+ProductID: PROD1615223191
+Name: Wireless Keyboard
+Description: Make your workflow faster
+Price: 1199
+Quantity: 89
+Category: 4
+Rating: 0
+ReviewSize: 1
+WrittenBy: USER1615814063
+Name: gft
+Time: 21/03/2021 03:05:24:PM
+Title: good product
+Body: jh4cb yu rc 3jhvd3j 3u3hu e3u ekcbdc
+Likes: 1  Dislikes: 0
+RatingSize: 0
+
+ProductID: PROD1615745076
+Name: bell terminator
+Description: gaming laptop
+Price: 89999
+Quantity: 20
+Category: 4
+Rating: 0
+ReviewSize: 0
+RatingSize: 0
+
+ProductID: PROD1615721345
+Name: IP laserjet printer
+Description: home printer (less than 100 pages per month)
+Price: 2999
+Quantity: 40
+Category: 4
+Rating: 0
+ReviewSize: 0
+RatingSize: 0
+
+categoryNumber: 0
+categoryProductSize: 1
+ProductID: 
+Name: 
+Description: 
+Price: 0
+Quantity: 0
+Category: 0
+Rating: 0
+ReviewSize: 0
+RatingSize: 0
+
+categoryNumber: 1
+categoryProductSize: 3
+ProductID: PROD1614891128
+Name: Trestige Toaster
+Description: grilling and toasting
+Price: 1400
+Quantity: 40
+Category: 1
+Rating: 0
+ReviewSize: 0
+RatingSize: 0
+
+ProductID: PROD1615722901
+Name: filips induction cooker
+Description: 2900 Watt
+Price: 2699
+Quantity: 230
+Category: 1
+Rating: 0
+ReviewSize: 0
+RatingSize: 0
+
+ProductID: PROD1614880406
+Name: Hand Mixer
+Description: Efficient Mixing, Grating and grinding
+Price: 710
+Quantity: 100
+Category: 1
+Rating: 0
+ReviewSize: 0
+RatingSize: 0
+
+categoryNumber: 5
+categoryProductSize: 1
+ProductID: PROD1615719932
+Name: A tell of ice and fire
+Description: Ancient tell of the dragons
+Price: 2599
+Quantity: 300
+Category: 5
+Rating: 9
+ReviewSize: 0
+RatingSize: 1
+WrittenBy: USER1615814063 9
+
+OrderSize: 1
+ProdID: 4 PROD1615745076
+ProductOrderSize: 1
+USER1615814063
+

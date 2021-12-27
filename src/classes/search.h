@@ -4,23 +4,26 @@
 #include <iostream>
 #include <vector>
 #include "grp.h"
-using namespace std;
 
-struct trie{
-    string id;
+struct trie
+{
+    std::string id;
     unsigned int cat;
     struct trie *child[26];
 };
 
-class searchList{
+class searchList
+{
+public:
+    searchList();
+    void insert(std::string, unsigned int, std::string);
+    std::vector<grp<unsigned int, std::string>> getList(std::string);
+
+private:
     trie *root;
 
-    trie* getnode();
-    void traverse(struct trie*, vector<grp<unsigned int, string>>&);
-    public:
-    searchList();
-    void insert(string,unsigned int,string);
-    vector<grp<unsigned int, string>> getList(string);
+    trie *getnode();
+    void traverse(struct trie *, std::vector<grp<unsigned int, std::string>> &);
 };
 
 #endif

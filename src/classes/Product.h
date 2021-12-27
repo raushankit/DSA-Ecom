@@ -5,25 +5,28 @@
 #include <unordered_map>
 #include <vector>
 
-class Product{
-    string name, description;
+class Product
+{
+public:
+    Product();
+    Product(std::string, std::string, unsigned int, unsigned int, unsigned int);
+    Product(const Product &);
+    Product &operator=(const Product &);
+    void addRating(std::string, unsigned int);
+    void addReview(std::string, review);
+    std::string getName();
+    std::vector<std::string> displayProduct();
+    friend std::ostream &operator<<(std::ostream &, const Product &);
+    friend std::istream &operator>>(std::istream &, Product &);
+
+private:
+    std::string name, description;
     unsigned int amount, quantity, category;
     double rating;
-    unordered_map<string, review> redata;// string is the userID
-    unordered_map<string, unsigned int> ratdata;
+    std::unordered_map<std::string, review> redata; // std::string is the userID
+    std::unordered_map<std::string, unsigned int> ratdata;
 
     friend class Kart;
-    public:
-    Product();
-    Product(string,string,unsigned int,unsigned int,unsigned int);
-    Product(const Product&);
-    Product& operator=(const Product&);
-    void addRating(string, unsigned int);
-    void addReview(string, review);
-    string getName();
-    vector<string> displayProduct();
-    friend ostream& operator<<(ostream&, const Product&);
-    friend istream& operator>>(istream&, Product&);
 };
 
 #endif

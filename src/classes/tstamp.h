@@ -3,12 +3,11 @@
 #include <iostream>
 #include <chrono>
 #include <ctime>
-using namespace std;
 
 bool getResponse(char);
 
-string nowTime();
+std::string nowTime();
 
-string Timestamp();
+std::string Timestamp();
 
 #endif

@@ -7,12 +7,10 @@ VPATH = classes
 OBJDIR = ../build
 
 CLASSES = \
-	 main.o \
 	 address.o \
 	 Account.o \
 	 kart.o \
 	 order.o \
-	 page.o \
 	 pageCode.o \
 	 Product.o \
 	 review.o \
@@ -21,6 +19,7 @@ CLASSES = \
 	 tstamp.o \
 
 FUNCTS = \
+	 page.o \
 	 main.o \
 
 OBJECTS = \

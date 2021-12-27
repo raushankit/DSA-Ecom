@@ -1,9 +1,9 @@
 #ifndef __PAGE__
 #define __PAGE__
 
-#include "pageCode.h"
-#include "grp.h"
-#include "kart.h"
+#include "classes/pageCode.h"
+#include "classes/grp.h"
+#include "classes/kart.h"
 
 void ProfilePage(Kart &, bool, std::string, std::string);
 

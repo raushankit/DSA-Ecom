@@ -68,7 +68,7 @@ void Kart::addProduct()
 
 void Kart::saveData()
 {
-    char *file = (char *)"Kartdata.txt";
+    char *file = (char *)"data/Kartdata.txt";
     std::ofstream fout;
     fout.open(file, std::ofstream::out | std::ofstream::trunc);
     fout << "BACKUP DATA" << std::endl;
@@ -78,7 +78,7 @@ void Kart::saveData()
 
 void Kart::loadData()
 {
-    std::ifstream fin("Kartdata.txt");
+    std::ifstream fin("data/Kartdata.txt");
     std::string str = "";
     getline(fin, str);
     getline(fin, str);

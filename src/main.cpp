@@ -1,4 +1,4 @@
-#include "classes/page.h"
+#include "page.h"
 
 int main()
 {

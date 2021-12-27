@@ -1,10 +1,12 @@
 #include "Account.h"
 
-Account::Account(){
+Account::Account()
+{
     username = password = name = "";
 }
 
-Account::Account(string userName, string PassWord, string Name){
+Account::Account(std::string userName, std::string PassWord, std::string Name)
+{
     username = userName;
     password = PassWord;
     name = Name;
@@ -15,7 +17,8 @@ Account::Account(string userName, string PassWord, string Name){
     orders.clear();
 }
 
-Account::Account(const Account &p){
+Account::Account(const Account &p)
+{
     username = p.username;
     password = p.password;
     name = p.name;
@@ -26,8 +29,10 @@ Account::Account(const Account &p){
     ratings = p.ratings;
 }
 
-Account& Account::operator=(const Account &p){
-    if(this!=&p){
+Account &Account::operator=(const Account &p)
+{
+    if (this != &p)
+    {
         username = p.username;
         password = p.password;
         name = p.name;
@@ -40,126 +45,164 @@ Account& Account::operator=(const Account &p){
     return *this;
 }
 
-ostream& operator<<(ostream &out, const Account &p){
-    out << "username: " << p.username << endl;
-    out << "password: " << p.password << endl;
-    out << "name: " << p.name << endl;
-    out << "AddressSize: " << p.addresses.size() << endl;
-    for(auto i:p.addresses){
-        out << i << endl;
+std::ostream &operator<<(std::ostream &out, const Account &p)
+{
+    out << "username: " << p.username << std::endl;
+    out << "password: " << p.password << std::endl;
+    out << "name: " << p.name << std::endl;
+    out << "AddressSize: " << p.addresses.size() << std::endl;
+    for (auto i : p.addresses)
+    {
+        out << i << std::endl;
     }
-    out << "CartSize: " << p.wish.size() << endl;
-    for(auto i:p.wish){
-        out << i.first << " " << i.second << endl;
+    out << "CartSize: " << p.wish.size() << std::endl;
+    for (auto i : p.wish)
+    {
+        out << i.first << " " << i.second << std::endl;
     }
-    out << "OrderSize: " << p.orders.size() << endl;
-    for(auto i:p.orders){
-        out << "ProductID: " << i.first << endl;
+    out << "OrderSize: " << p.orders.size() << std::endl;
+    for (auto i : p.orders)
+    {
+        out << "ProductID: " << i.first << std::endl;
         out << i.second;
     }
-    out << "ReviewSize: " << p.reviews.size() << endl;
-    for(auto i:p.reviews){
-        out << i << endl;
+    out << "ReviewSize: " << p.reviews.size() << std::endl;
+    for (auto i : p.reviews)
+    {
+        out << i << std::endl;
     }
-    out << "RatingSize: " << p.ratings.size() << endl;
-    for(auto i:p.ratings){
-        out << i << endl;
+    out << "RatingSize: " << p.ratings.size() << std::endl;
+    for (auto i : p.ratings)
+    {
+        out << i << std::endl;
     }
     return out;
 }
 
-istream& operator>>(istream &in, Account &p){
-    string str;
-    getline(in,str);
-    stringstream ss(str);
+std::istream &operator>>(std::istream &in, Account &p)
+{
+    std::string str;
+    getline(in, str);
+    std::stringstream ss(str);
     ss >> str >> p.username;
-    getline(in,str);
-    ss.str("");ss.clear();ss << str;
+    getline(in, str);
+    ss.str("");
+    ss.clear();
+    ss << str;
     ss >> str >> p.password;
-    getline(in,str);
-    ss.str("");ss.clear();ss << str;
+    getline(in, str);
+    ss.str("");
+    ss.clear();
+    ss << str;
     ss >> str >> p.name;
-    while(ss >> str) p.name += " "+str;
+    while (ss >> str)
+        p.name += " " + str;
     int n;
-    getline(in,str);
-    ss.str("");ss.clear();ss << str;
+    getline(in, str);
+    ss.str("");
+    ss.clear();
+    ss << str;
     ss >> str >> n;
-    for(int i = 0;i < n;i++){
+    for (int i = 0; i < n; i++)
+    {
         address temp;
         in >> temp;
         p.addresses.push_back(temp);
     }
-    getline(in,str);
-    ss.str("");ss.clear();ss << str;
+    getline(in, str);
+    ss.str("");
+    ss.clear();
+    ss << str;
     ss >> str >> n;
-    for(int i = 0;i < n;i++){
+    for (int i = 0; i < n; i++)
+    {
         unsigned int flag;
-        string prodID;
-        getline(in,str);
-        ss.str("");ss.clear();ss << str;
+        std::string prodID;
+        getline(in, str);
+        ss.str("");
+        ss.clear();
+        ss << str;
         ss >> prodID >> str >> flag;
-        p.wish[prodID+" "+str] = flag;
+        p.wish[prodID + " " + str] = flag;
     }
-    getline(in,str);
-    ss.str("");ss.clear();ss << str;
+    getline(in, str);
+    ss.str("");
+    ss.clear();
+    ss << str;
     ss >> str >> n;
-    for(int i = 0;i < n;i++){
-        string prodid;
-        getline(in,str);
-        ss.str("");ss.clear();ss << str;
+    for (int i = 0; i < n; i++)
+    {
+        std::string prodid;
+        getline(in, str);
+        ss.str("");
+        ss.clear();
+        ss << str;
         ss >> str >> prodid >> str;
-        prodid += " "+str;
+        prodid += " " + str;
         order temp;
         in >> temp;
         p.orders[prodid] = temp;
     }
-    getline(in,str);
-    ss.str("");ss.clear();ss << str;
+    getline(in, str);
+    ss.str("");
+    ss.clear();
+    ss << str;
     ss >> str >> n;
-    for(int i = 0;i < n;i++){
-        getline(in,str);
+    for (int i = 0; i < n; i++)
+    {
+        getline(in, str);
         p.reviews.push_back(str);
     }
-    getline(in,str);
-    ss.str("");ss.clear();ss << str;
+    getline(in, str);
+    ss.str("");
+    ss.clear();
+    ss << str;
     ss >> str >> n;
-    for(int i = 0;i < n;i++){
-        getline(in,str);
+    for (int i = 0; i < n; i++)
+    {
+        getline(in, str);
         p.ratings.push_back(str);
     }
     return in;
 }
 
-bool Account::verifyID(string un,string pw){
-    if(un!=username){
-        cout << "Invalid username" << endl;
+bool Account::verifyID(std::string un, std::string pw)
+{
+    if (un != username)
+    {
+        std::cout << "Invalid username" << std::endl;
         return false;
     }
-    if(pw!=password){
-        cout << "Invalid password" << endl;
+    if (pw != password)
+    {
+        std::cout << "Invalid password" << std::endl;
         return false;
     }
     return true;
 }
 
-string Account::getName(){
+std::string Account::getName()
+{
     return name;
 }
 
-void Account::setUp(string u,string p){
+void Account::setUp(std::string u, std::string p)
+{
     username = u;
     password = p;
 }
 
-string Account::newAccount(){
-    cout << "Enter name: ";
-    getline(cin,name);
-    cout << "Enter username: ";
-    getline(cin,username);
-    cout << "Enter Password: ";
-    getline(cin,password);
-    cout << "Do you want to enter an address[y/n]? ";
-    if(getResponse('y')){
+std::string Account::newAccount()
+{
+    std::cout << "Enter name: ";
+    getline(std::cin, name);
+    std::cout << "Enter username: ";
+    getline(std::cin, username);
+    std::cout << "Enter Password: ";
+    getline(std::cin, password);
+    std::cout << "Do you want to enter an address[y/n]? ";
+    if (getResponse('y'))
+    {
         address ad;
         ad.addAddress();
         addresses.push_back(ad);
@@ -167,9 +210,9 @@ string Account::newAccount(){
     return name;
 }
 
-void Account::addAddress(){
+void Account::addAddress()
+{
     address ad;
     ad.addAddress();
     addresses.push_back(ad);
 }
-

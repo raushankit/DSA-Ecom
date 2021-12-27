@@ -5,16 +5,16 @@
 #include "grp.h"
 #include "kart.h"
 
-void ProfilePage(Kart &, bool, string, string);
+void ProfilePage(Kart &, bool, std::string, std::string);
 
-string loginActivity(Kart &, string);
+std::string loginActivity(Kart &, std::string);
 
-grp<string, string> frontPageOperation(Kart &, string);
+grp<std::string, std::string> frontPageOperation(Kart &, std::string);
 
-void frontPage(Kart &, bool, string, string);
+void frontPage(Kart &, bool, std::string, std::string);
 
-void ProductPage(Kart &, bool, unsigned int, string, string, string, vector<string> &);
+void ProductPage(Kart &, bool, unsigned int, std::string, std::string, std::string, std::vector<std::string> &);
 
-void cartPage(Kart &, string, string, bool);
+void cartPage(Kart &, std::string, std::string, bool);
 
 #endif

@@ -1,29 +1,29 @@
 #include "page.h"
 
-void ProfilePage(Kart &p, bool firstTime, string uid, string name)
+void ProfilePage(Kart &p, bool firstTime, std::string uid, std::string name)
 {
-    cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" << endl;
-    cout << "PROFILE PAGE" << endl;
+    std::cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" << std::endl;
+    std::cout << "PROFILE PAGE" << std::endl;
     if (firstTime)
         ProfilePageCodes();
-    cout << "Enter Code: ";
-    string r;
-    getline(cin, r);
+    std::cout << "Enter Code: ";
+    std::string r;
+    getline(std::cin, r);
     if (r == "C" || r == "c")
     {
         cartPage(p, name, uid, true);
     }
     else if (r == "W" || r == "w")
     {
-        cout << "==============================" << endl;
-        cout << "   M   \tMove items to cart" << endl;
-        cout << "   R   \tRemove Items" << endl;
-        cout << "==============================" << endl;
-        cout << "Enter Code: ";
-        getline(cin, r);
+        std::cout << "==============================" << std::endl;
+        std::cout << "   M   \tMove items to cart" << std::endl;
+        std::cout << "   R   \tRemove Items" << std::endl;
+        std::cout << "==============================" << std::endl;
+        std::cout << "Enter Code: ";
+        getline(std::cin, r);
         if (r != "m" && r != "M" && r != "R" && r != "r")
         {
-            cout << "Invalid Input" << endl;
+            std::cout << "Invalid Input" << std::endl;
             ProfilePage(p, false, uid, name);
         }
         p.WishlistPage(uid, (r == "m" || r == "M"));
@@ -42,10 +42,10 @@ void ProfilePage(Kart &p, bool firstTime, string uid, string name)
     else if (r == "S" || r == "s")
     {
         // search product
-        grp<unsigned int, string> pro = p.searchResult();
+        grp<unsigned int, std::string> pro = p.searchResult();
         if (pro.a == 0)
             ProfilePage(p, false, uid, name);
-        vector<string> rev;
+        std::vector<std::string> rev;
         ProductPage(p, true, pro.a, pro.b, uid, name, rev);
     }
     else if (r == "A" || r == "a")
@@ -56,27 +56,27 @@ void ProfilePage(Kart &p, bool firstTime, string uid, string name)
     else if (r == "E" || r == "e")
     {
         p.saveData();
-        cout << "DATA SAVED SUCCESSFULLY" << endl;
+        std::cout << "DATA SAVED SUCCESSFULLY" << std::endl;
     }
     else
     {
-        cout << "Invalid Code" << endl;
+        std::cout << "Invalid Code" << std::endl;
         ProfilePage(p, false, uid, name);
     }
 }
 
-void ProductPage(Kart &p, bool firstTime, unsigned int cat, string prodid, string uID, string Name, vector<string> &reveids)
+void ProductPage(Kart &p, bool firstTime, unsigned int cat, std::string prodid, std::string uID, std::string Name, std::vector<std::string> &reveids)
 {
-    cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" << endl;
-    cout << "PRODUCT PAGE" << endl;
+    std::cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" << std::endl;
+    std::cout << "PRODUCT PAGE" << std::endl;
     if (firstTime)
     {
         ProductPageCodes();
         reveids = p.showProduct(cat, prodid);
     }
-    string r;
-    cout << "Enter Code: ";
-    getline(cin, r);
+    std::string r;
+    std::cout << "Enter Code: ";
+    getline(std::cin, r);
     if (r == "P" || r == "p")
     {
         p.BuyNow(uID, cat, prodid);
@@ -113,7 +113,7 @@ void ProductPage(Kart &p, bool firstTime, unsigned int cat, string prodid, strin
     }
     else if (r == "S" || r == "s")
     {
-        grp<unsigned int, string> pro = p.searchResult();
+        grp<unsigned int, std::string> pro = p.searchResult();
         if (pro.a == 0)
             frontPage(p, true, Name, uID);
         ProductPage(p, true, pro.a, pro.b, uID, Name, reveids);
@@ -122,24 +122,24 @@ void ProductPage(Kart &p, bool firstTime, unsigned int cat, string prodid, strin
     {
         if (reveids.empty())
         {
-            cout << "No reviews" << endl;
+            std::cout << "No reviews" << std::endl;
             ProductPage(p, false, cat, prodid, uID, Name, reveids);
         }
         unsigned int n;
-        stringstream ss(r);
+        std::stringstream ss(r);
         ss >> r;
         if (ss >> n)
         {
             if (n < 1 || n > reveids.size())
             {
-                cout << "Input out of bound" << endl;
+                std::cout << "Input out of bound" << std::endl;
                 ProductPage(p, false, cat, prodid, uID, Name, reveids);
             }
             p.lordreview(cat, prodid, reveids[n - 1], true);
         }
         else
         {
-            cout << "Invalid input" << endl;
+            std::cout << "Invalid input" << std::endl;
             ProductPage(p, false, cat, prodid, uID, Name, reveids);
         }
         ProductPage(p, false, cat, prodid, uID, Name, reveids);
@@ -148,24 +148,24 @@ void ProductPage(Kart &p, bool firstTime, unsigned int cat, string prodid, strin
     {
         if (reveids.empty())
         {
-            cout << "No reviews" << endl;
+            std::cout << "No reviews" << std::endl;
             ProductPage(p, false, cat, prodid, uID, Name, reveids);
         }
         unsigned int n;
-        stringstream ss(r);
+        std::stringstream ss(r);
         ss >> r;
         if (ss >> n)
         {
             if (n < 1 || n > reveids.size())
             {
-                cout << "Input out of bound" << endl;
+                std::cout << "Input out of bound" << std::endl;
                 ProductPage(p, false, cat, prodid, uID, Name, reveids);
             }
             p.lordreview(cat, prodid, reveids[n - 1], false);
         }
         else
         {
-            cout << "Invalid input" << endl;
+            std::cout << "Invalid input" << std::endl;
             ProductPage(p, false, cat, prodid, uID, Name, reveids);
         }
         ProductPage(p, false, cat, prodid, uID, Name, reveids);
@@ -173,32 +173,32 @@ void ProductPage(Kart &p, bool firstTime, unsigned int cat, string prodid, strin
     else if (r == "E" || r == "e")
     {
         p.saveData();
-        cout << "DATA SAVED SUCCESSFULLY" << endl;
+        std::cout << "DATA SAVED SUCCESSFULLY" << std::endl;
     }
     else
     {
-        cout << "Invalid Code" << endl;
+        std::cout << "Invalid Code" << std::endl;
         ProductPage(p, false, cat, prodid, uID, Name, reveids);
     }
 }
 
-string loginActivity(Kart &p, string uID)
+std::string loginActivity(Kart &p, std::string uID)
 {
-    string uName, Pword;
-    cout << "Enter Username: ";
-    getline(cin, uName);
-    cout << "Enter Password: ";
-    getline(cin, Pword);
+    std::string uName, Pword;
+    std::cout << "Enter Username: ";
+    getline(std::cin, uName);
+    std::cout << "Enter Password: ";
+    getline(std::cin, Pword);
     uName = p.verifyID(uID, uName, Pword);
     if (uName != "")
         return uName;
     if (uName == "")
-        cout << "Forgot password?[y/n] ";
-    getline(cin, uName);
+        std::cout << "Forgot password?[y/n] ";
+    getline(std::cin, uName);
     if (uName == "Y" || uName == "y")
     {
-        cout << "Enter your name: ";
-        getline(cin, Pword);
+        std::cout << "Enter your name: ";
+        getline(std::cin, Pword);
         if (p.recoverAndSet(uID, Pword))
         {
             return Pword;
@@ -207,59 +207,59 @@ string loginActivity(Kart &p, string uID)
     else
     {
         if (uName != "N" && uName != "n")
-            cout << "Invalid response" << endl;
+            std::cout << "Invalid response" << std::endl;
     }
     return "";
 }
-grp<string, string> frontPageOperation(Kart &p, string uID)
+grp<std::string, std::string> frontPageOperation(Kart &p, std::string uID)
 {
-    string name, userID = uID;
+    std::string name, userID = uID;
     if (userID == "")
     {
-        cout << "Create an Account" << endl;
+        std::cout << "Create an Account" << std::endl;
         return p.createAccount();
     }
     else
     {
-        cout << "Login with your Credentials" << endl;
+        std::cout << "Login with your Credentials" << std::endl;
         name = loginActivity(p, userID);
     }
-    return grp<string, string>(userID, name);
+    return grp<std::string, std::string>(userID, name);
 }
 
-void frontPage(Kart &p, bool firstTime, string name, string uid)
+void frontPage(Kart &p, bool firstTime, std::string name, std::string uid)
 {
-    cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" << endl;
-    cout << "MAIN PAGE" << endl;
-    string userID, Name;
+    std::cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" << std::endl;
+    std::cout << "MAIN PAGE" << std::endl;
+    std::string userID, Name;
     if (firstTime && name == "")
     {
         frontPageCodes();
-        grp<string, string> data = frontPageOperation(p, uid);
+        grp<std::string, std::string> data = frontPageOperation(p, uid);
         userID = data.a;
         Name = data.b;
         if (Name == "")
         {
-            cout << "Login Failed" << endl;
+            std::cout << "Login Failed" << std::endl;
             return;
         }
-        cout << "Logged in as: " << Name << endl;
+        std::cout << "Logged in as: " << Name << std::endl;
     }
     else
     {
         userID = uid;
         Name = name;
     }
-    cout << "Hi! " << Name << endl;
-    cout << "Enter the operation code: ";
-    string r;
-    getline(cin, r);
+    std::cout << "Hi! " << Name << std::endl;
+    std::cout << "Enter the operation code: ";
+    std::string r;
+    getline(std::cin, r);
     if (r == "S" || r == "s")
     {
-        grp<unsigned int, string> pro = p.searchResult();
+        grp<unsigned int, std::string> pro = p.searchResult();
         if (pro.a == 0)
             frontPage(p, false, Name, userID);
-        vector<string> rev;
+        std::vector<std::string> rev;
         ProductPage(p, true, pro.a, pro.b, userID, Name, rev);
     }
     else if (r == "P" || r == "p")
@@ -272,15 +272,15 @@ void frontPage(Kart &p, bool firstTime, string name, string uid)
     }
     else if (r == "W" || r == "w")
     {
-        cout << "==============================" << endl;
-        cout << "   M   \tMove items to cart" << endl;
-        cout << "   R   \tRemove Items" << endl;
-        cout << "==============================" << endl;
-        cout << "Enter Code: ";
-        getline(cin, r);
+        std::cout << "==============================" << std::endl;
+        std::cout << "   M   \tMove items to cart" << std::endl;
+        std::cout << "   R   \tRemove Items" << std::endl;
+        std::cout << "==============================" << std::endl;
+        std::cout << "Enter Code: ";
+        getline(std::cin, r);
         if (r != "m" && r != "M" && r != "R" && r != "r")
         {
-            cout << "Invalid Input" << endl;
+            std::cout << "Invalid Input" << std::endl;
             ProfilePage(p, false, uid, name);
         }
         p.WishlistPage(uid, (r == "m" || r == "M"));
@@ -295,23 +295,23 @@ void frontPage(Kart &p, bool firstTime, string name, string uid)
     else if (r == "E" || r == "e")
     {
         p.saveData();
-        cout << "DATA SAVED SUCCESSFULLY" << endl;
+        std::cout << "DATA SAVED SUCCESSFULLY" << std::endl;
     }
     else
     {
-        cout << "Invalid Code" << endl;
+        std::cout << "Invalid Code" << std::endl;
         frontPage(p, false, Name, userID);
     }
 }
 
-void cartPage(Kart &p, string name, string uID, bool FirstTime)
+void cartPage(Kart &p, std::string name, std::string uID, bool FirstTime)
 {
-    cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" << endl;
-    cout << "CART PAGE" << endl;
+    std::cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" << std::endl;
+    std::cout << "CART PAGE" << std::endl;
     auto cprod = p.getCart(uID);
     if (cprod.empty())
     {
-        cout << "No items in Cart" << endl;
+        std::cout << "No items in Cart" << std::endl;
         frontPage(p, false, name, uID);
         return;
     }
@@ -320,18 +320,18 @@ void cartPage(Kart &p, string name, string uID, bool FirstTime)
         cartPageCodes();
         for (unsigned int i = 0; i < cprod.size(); i++)
         {
-            cout << i + 1 << " :: " << p.getProductName(cprod[i].a) << " quantity: " << cprod[i].b << endl;
+            std::cout << i + 1 << " :: " << p.getProductName(cprod[i].a) << " quantity: " << cprod[i].b << std::endl;
         }
     }
-    string res;
-    cout << "Choose Operation: ";
-    getline(cin, res);
+    std::string res;
+    std::cout << "Choose Operation: ";
+    getline(std::cin, res);
     if (res == "S" || res == "s")
     {
-        grp<unsigned int, string> pro = p.searchResult();
+        grp<unsigned int, std::string> pro = p.searchResult();
         if (pro.a == 0)
             cartPage(p, name, uID, false);
-        vector<string> rev;
+        std::vector<std::string> rev;
         ProductPage(p, true, pro.a, pro.b, uID, name, rev);
     }
     else if (res == "P" || res == "p")
@@ -340,12 +340,12 @@ void cartPage(Kart &p, string name, string uID, bool FirstTime)
     }
     else if (res == "C" || res == "c")
     {
-        string str;
-        cout << "Choose the products to checkout" << endl;
-        cout << "Enter the number/(s) seperated by spaces: ";
-        getline(cin, str);
-        stringstream ss(str);
-        vector<grp<string, unsigned int>> tp;
+        std::string str;
+        std::cout << "Choose the products to checkout" << std::endl;
+        std::cout << "Enter the number/(s) seperated by spaces: ";
+        getline(std::cin, str);
+        std::stringstream ss(str);
+        std::vector<grp<std::string, unsigned int>> tp;
         int tmp, tsz = cprod.size();
         bool tmb = false;
         while (ss >> tmp)
@@ -359,7 +359,7 @@ void cartPage(Kart &p, string name, string uID, bool FirstTime)
         }
         if (tp.empty() || tmb)
         {
-            cout << "Invalid Input" << endl;
+            std::cout << "Invalid Input" << std::endl;
             cartPage(p, name, uID, false);
         }
         p.checkout(uID, tp);
@@ -367,12 +367,12 @@ void cartPage(Kart &p, string name, string uID, bool FirstTime)
     }
     else if (res == "R" || res == "r")
     {
-        string str;
-        cout << "Choose the products to checkout" << endl;
-        cout << "Enter the number/(s) seperated by spaces: ";
-        getline(cin, str);
-        stringstream ss(str);
-        vector<string> tp;
+        std::string str;
+        std::cout << "Choose the products to checkout" << std::endl;
+        std::cout << "Enter the number/(s) seperated by spaces: ";
+        getline(std::cin, str);
+        std::stringstream ss(str);
+        std::vector<std::string> tp;
         int tmp, tsz = cprod.size();
         bool tmb = false;
         while (ss >> tmp)
@@ -386,7 +386,7 @@ void cartPage(Kart &p, string name, string uID, bool FirstTime)
         }
         if (tp.empty() || tmb)
         {
-            cout << "Invalid Input" << endl;
+            std::cout << "Invalid Input" << std::endl;
             cartPage(p, name, uID, false);
         }
         p.removeFromCart(uID, tp);
@@ -394,16 +394,16 @@ void cartPage(Kart &p, string name, string uID, bool FirstTime)
     }
     else if (res == "W" || res == "w")
     {
-        cout << "==============================" << endl;
-        cout << "   M   \tMove items to cart" << endl;
-        cout << "   R   \tRemove Items" << endl;
-        cout << "==============================" << endl;
-        cout << "Enter Code: ";
-        string r;
-        getline(cin, r);
+        std::cout << "==============================" << std::endl;
+        std::cout << "   M   \tMove items to cart" << std::endl;
+        std::cout << "   R   \tRemove Items" << std::endl;
+        std::cout << "==============================" << std::endl;
+        std::cout << "Enter Code: ";
+        std::string r;
+        getline(std::cin, r);
         if (r != "m" && r != "M" && r != "R" && r != "r")
         {
-            cout << "Invalid Input" << endl;
+            std::cout << "Invalid Input" << std::endl;
             ProfilePage(p, false, uID, name);
         }
         p.WishlistPage(uID, (r == "m" || r == "M"));
@@ -421,11 +421,11 @@ void cartPage(Kart &p, string name, string uID, bool FirstTime)
     else if (res == "E" || res == "e")
     {
         p.saveData();
-        cout << "DATA SAVED SUCCESSFULLY" << endl;
+        std::cout << "DATA SAVED SUCCESSFULLY" << std::endl;
     }
     else
     {
-        cout << "Invalid Code" << endl;
+        std::cout << "Invalid Code" << std::endl;
         cartPage(p, name, uID, false);
     }
 }
